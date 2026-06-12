@@ -2091,7 +2091,7 @@ paths:
                       vni: 12001
                       networkSecurityGroupId: c602eb90-3039-11f0-997a-b38d4fc8389e
                       networkSecurityGroupPropagationDetails:
-                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        objectId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
                         detailedStatus: Partial
                         status: Synchronizing
                         details: ''
@@ -2306,7 +2306,7 @@ paths:
                     status: Ready
                     networkSecurityGroupId: 'c602eb90-3039-11f0-997a-b38d4fc8389e,'
                     networkSecurityGroupPropagationDetails:
-                      id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      objectId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
                       detailedStatus: Partial
                       status: Synchronizing
                       details: ''
@@ -5224,14 +5224,6 @@ paths:
                           message: 'Request received, pending processing'
                           created: '2019-08-24T14:15:22Z'
                           updated: '2019-08-24T14:15:22Z'
-                      deprecations:
-                        - queryParam: includeMachineAssociation
-                          replacedBy: includeMachineAssignment
-                          takeActionBy: '2023-07-26T00:00:00Z'
-                          notice: '''includeMachineAssociation'' has been deprecated in favor of ''includeMachineAssignment''. Please take action immediately.'
-                        - attribute: displayName
-                          takeActionBy: '2024-10-30T00:00:00Z'
-                          notice: '''displayName'' has been deprecated. Please take action immediately.'
                       created: '2019-08-24T14:15:22Z'
                       updated: '2019-08-24T14:15:22Z'
                 example-2:
@@ -5258,14 +5250,6 @@ paths:
                           message: 'Request received, pending processing'
                           created: '2019-08-24T14:15:22Z'
                           updated: '2019-08-24T14:15:22Z'
-                      deprecations:
-                        - queryParam: includeMachineAssociation
-                          replacedBy: includeMachineAssignment
-                          takeActionBy: '2023-07-26T00:00:00Z'
-                          notice: '''includeMachineAssociation'' has been deprecated in favor of ''includeMachineAssignment''. Please take action immediately.'
-                        - attribute: displayName
-                          takeActionBy: '2024-10-30T00:00:00Z'
-                          notice: '''displayName'' has been deprecated. Please take action immediately.'
                       created: '2019-08-24T14:15:22Z'
                       updated: '2019-08-24T14:15:22Z'
                 example-3:
@@ -5293,14 +5277,6 @@ paths:
                           message: 'Request received, pending processing'
                           created: '2025-05-24T14:15:22Z'
                           updated: '2025-05-24T14:15:22Z'
-                      deprecations:
-                        - queryParam: includeMachineAssociation
-                          replacedBy: includeMachineAssignment
-                          takeActionBy: '2023-07-26T00:00:00Z'
-                          notice: '''includeMachineAssociation'' has been deprecated in favor of ''includeMachineAssignment''. Please take action immediately.'
-                        - attribute: displayName
-                          takeActionBy: '2024-10-30T00:00:00Z'
-                          notice: '''displayName'' has been deprecated. Please take action immediately.'
                       created: '2025-05-24T14:15:22Z'
                       updated: '2025-05-24T14:15:22Z'
           headers:
@@ -5442,14 +5418,6 @@ paths:
                         message: 'Request received, pending processing'
                         created: '2019-08-24T14:15:22Z'
                         updated: '2019-08-24T14:15:22Z'
-                    deprecations:
-                      - queryParam: includeMachineAssociation
-                        replacedBy: includeMachineAssignment
-                        takeActionBy: '2023-07-26T00:00:00Z'
-                        notice: '''includeMachineAssociation'' has been deprecated in favor of ''includeMachineAssignment''. Please take action immediately.'
-                      - attribute: displayName
-                        takeActionBy: '2024-10-30T00:00:00Z'
-                        notice: '''displayName'' has been deprecated. Please take action immediately.'
                     created: '2019-08-24T14:15:22Z'
                     updated: '2019-08-24T14:15:22Z'
         '400':
@@ -5558,14 +5526,6 @@ paths:
                         message: 'Request received, pending processing'
                         created: '2019-08-24T14:15:22Z'
                         updated: '2019-08-24T14:15:22Z'
-                    deprecations:
-                      - queryParam: includeMachineAssociation
-                        replacedBy: includeMachineAssignment
-                        takeActionBy: '2023-07-26T00:00:00Z'
-                        notice: '''includeMachineAssociation'' has been deprecated in favor of ''includeMachineAssignment''. Please take action immediately.'
-                      - attribute: displayName
-                        takeActionBy: '2024-10-30T00:00:00Z'
-                        notice: '''displayName'' has been deprecated. Please take action immediately.'
                     created: '2019-08-24T14:15:22Z'
                     updated: '2019-08-24T14:15:22Z'
         '403':
@@ -5644,14 +5604,6 @@ paths:
                         message: 'Request received, pending processing'
                         created: '2019-08-24T14:15:22Z'
                         updated: '2019-08-24T14:15:22Z'
-                    deprecations:
-                      - queryParam: includeMachineAssociation
-                        replacedBy: includeMachineAssignment
-                        takeActionBy: '2023-07-26T00:00:00Z'
-                        notice: '''includeMachineAssociation'' has been deprecated in favor of ''includeMachineAssignment''. Please take action immediately.'
-                      - attribute: displayName
-                        takeActionBy: '2024-10-30T00:00:00Z'
-                        notice: '''displayName'' has been deprecated. Please take action immediately.'
                     created: '2019-08-24T14:15:22Z'
                     updated: '2019-08-24T14:15:22Z'
         '400':
@@ -5900,7 +5852,7 @@ paths:
                       isUpdatePending: false
                       networkSecurityGroupId: 'c602eb90-3039-11f0-997a-b38d4fc8389e,'
                       networkSecurityGroupPropagationDetails:
-                        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                        objectId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
                         detailedStatus: Partial
                         status: Synchronizing
                         details: ''
@@ -5987,11 +5939,6 @@ paths:
                           message: The Instance successfully completed boot
                           created: '2019-08-24T14:15:22Z'
                           updated: '2019-08-24T14:15:22Z'
-                      deprecations:
-                        - attribute: sshkeygroups
-                          replacedBy: sshKeyGroups
-                          takeActionBy: '2025-09-04T00:00:00Z'
-                          notice: '''sshkeygroups'' is being deprecated in favor of ''sshKeyGroups''. Please take action prior to the specified date.'
                       created: '2019-08-24T14:15:22Z'
                       updated: '2019-08-24T14:15:22Z'
                 example-2:
@@ -6012,7 +5959,7 @@ paths:
                       userData: null
                       networkSecurityGroupId: c602eb90-3039-11f0-997a-b38d4fc8389e
                       networkSecurityGroupPropagationDetails:
-                        id: 37804b21-0a00-4668-81cb-af9e1b07ad3e
+                        objectId: 37804b21-0a00-4668-81cb-af9e1b07ad3e
                         detailedStatus: Partial
                         status: Synchronizing
                         details: ''
@@ -6078,11 +6025,6 @@ paths:
                           message: The Instance successfully completed boot
                           created: '2019-08-24T14:15:22Z'
                           updated: '2019-08-24T14:15:22Z'
-                      deprecations:
-                        - attribute: sshkeygroups
-                          replacedBy: sshKeyGroups
-                          takeActionBy: '2025-09-04T00:00:00Z'
-                          notice: '''sshkeygroups'' is being deprecated in favor of ''sshKeyGroups'' and will be removed on September 9th, 2025. Please update your usage accordingly.'
                       created: '2019-08-24T14:15:22Z'
                       updated: '2019-08-24T14:15:22Z'
                 example-3:
@@ -6103,7 +6045,7 @@ paths:
                       userData: null
                       networkSecurityGroupId: c602eb90-3039-11f0-997a-b38d4fc8389e
                       networkSecurityGroupPropagationDetails:
-                        id: 37804b21-0a00-4668-81cb-af9e1b07ad3e
+                        objectId: 37804b21-0a00-4668-81cb-af9e1b07ad3e
                         detailedStatus: Partial
                         status: Synchronizing
                         details: ''
@@ -6162,11 +6104,6 @@ paths:
                           message: The Instance successfully completed boot
                           created: '2019-08-24T14:15:22Z'
                           updated: '2019-08-24T14:15:22Z'
-                      deprecations:
-                        - attribute: sshkeygroups
-                          replacedBy: sshKeyGroups
-                          takeActionBy: '2025-09-04T00:00:00Z'
-                          notice: '''sshkeygroups'' is being deprecated in favor of ''sshKeyGroups'' and will be removed on September 9th, 2025. Please update your usage accordingly.'
                       created: '2019-08-24T14:15:22Z'
                       updated: '2019-08-24T14:15:22Z'
           headers:
@@ -6392,11 +6329,6 @@ paths:
                         message: 'Request received, pending processing'
                         created: '2019-08-24T14:15:22Z'
                         updated: '2019-08-24T14:15:22Z'
-                    deprecations:
-                      - attribute: sshkeygroups
-                        replacedBy: sshKeyGroups
-                        takeActionBy: '2025-09-04T00:00:00Z'
-                        notice: '''sshkeygroups'' is being deprecated in favor of ''sshKeyGroups''. Please take action prior to the specified date.'
                     created: '2019-08-24T14:15:22Z'
                     updated: '2019-08-24T14:15:22Z'
                 With DPU Extension Service Deployments:
@@ -6751,7 +6683,7 @@ paths:
                     userData: null
                     networkSecurityGroupId: c602eb90-3039-11f0-997a-b38d4fc8389e
                     networkSecurityGroupPropagationDetails:
-                      id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      objectId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
                       detailedStatus: Partial
                       status: Synchronizing
                       details: ''
@@ -6851,11 +6783,6 @@ paths:
                         message: 'Request received, pending processing'
                         created: '2019-08-24T14:15:22Z'
                         updated: '2019-08-24T14:15:22Z'
-                    deprecations:
-                      - attribute: sshkeygroups
-                        replacedBy: sshKeyGroups
-                        takeActionBy: '2025-09-04T00:00:00Z'
-                        notice: '''sshkeygroups'' is being deprecated in favor of ''sshKeyGroups''. Please take action prior to the specified date.'
                     created: '2019-08-24T14:15:22Z'
                     updated: '2019-08-24T14:15:22Z'
         '403':
@@ -6977,7 +6904,6 @@ paths:
                         updated: '2019-08-24T14:15:22Z'
                       - id: 84a2cf1e-73fc-42f4-974e-33a4e9889eb9
                         instanceId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
-                        siteId: 60189e9c-7d12-438c-b9ca-6998d9c364b1
                         partitionId: 8b05d5c3-8de4-48c8-8d1c-399a8abc3ab8
                         device: 'MT2910 Family [ConnectX-7]'
                         deviceInstance: 2
@@ -7035,11 +6961,6 @@ paths:
                         message: 'Request received, pending processing'
                         created: '2019-08-24T14:15:22Z'
                         updated: '2019-08-24T14:15:22Z'
-                    deprecations:
-                      - attribute: sshkeygroups
-                        replacedBy: sshKeyGroups
-                        takeActionBy: '2025-09-04T00:00:00Z'
-                        notice: '''sshkeygroups'' is being deprecated in favor of ''sshKeyGroups''. Please take action prior to the specified date.'
                     created: '2019-08-24T14:15:22Z'
                     updated: '2019-08-24T14:15:22Z'
         '400':
@@ -13341,6 +13262,11 @@ components:
           items:
             $ref: '#/components/schemas/StatusDetail'
           description: 'Chronological status history for the Tenant Account'
+        deprecations:
+          type: array
+          description: Deprecations active for this resource. Returned only if there are active deprecations.
+          items:
+            $ref: '#/components/schemas/Deprecation'
         created:
           type: string
           description: 'Date/time when the Tenant Account was created'
@@ -14136,6 +14062,11 @@ components:
         ipBlock:
           $ref: '#/components/schemas/IpBlockSummary'
           description: 'Summary of the IP Block'
+        deprecations:
+          type: array
+          description: Deprecations active for this resource. Returned only if there are active deprecations.
+          items:
+            $ref: '#/components/schemas/Deprecation'
         created:
           type: string
           description: Date/time when the Allocation Constraint was created
@@ -14217,7 +14148,7 @@ components:
           vni: 12001
           networkSecurityGroupId: c602eb90-3039-11f0-997a-b38d4fc8389e
           networkSecurityGroupPropagationDetails:
-            id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+            objectId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
             detailedStatus: Partial
             status: Synchronizing
             details: ''
@@ -15894,14 +15825,6 @@ components:
               message: 'Request received, pending processing'
               created: '2019-08-24T14:15:22Z'
               updated: '2019-08-24T14:15:22Z'
-          deprecations:
-            - queryParam: includeMachineAssociation
-              replacedBy: includeMachineAssignment
-              takeActionBy: '2023-07-26T00:00:00Z'
-              notice: '''includeMachineAssociation'' has been deprecated in favor of ''includeMachineAssignment''. Please take action immediately.'
-            - attribute: displayName
-              takeActionBy: '2024-10-30T00:00:00Z'
-              notice: '''displayName'' has been deprecated. Please take action immediately.'
           created: '2019-08-24T14:15:22Z'
           updated: '2019-08-24T14:15:22Z'
       properties:
@@ -15961,7 +15884,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Deprecation'
-          description: 'Deprecation notices for fields returned by this resource'
+          description: Deprecations active for this resource. Returned only if there are active deprecations.
         created:
           type: string
           description: 'Date/time when the InstanceType was created'
@@ -16223,7 +16146,7 @@ components:
           alwaysBootWithCustomIpxe: false
           networkSecurityGroupId: c602eb90-3039-11f0-997a-b38d4fc8389e
           networkSecurityGroupPropagationDetails:
-            id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+            objectId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
             detailedStatus: Partial
             status: Synchronizing
             details: ''
@@ -16312,11 +16235,6 @@ components:
               message: 'Request received, pending processing'
               created: '2019-08-24T14:15:22Z'
               updated: '2019-08-24T14:15:22Z'
-          deprecations:
-            - attribute: sshkeygroups
-              replacedBy: sshKeyGroups
-              takeActionBy: '2025-09-04T00:00:00Z'
-              notice: '''sshkeygroups'' is being deprecated in favor of ''sshKeyGroups''. Please take action prior to the specified date.'
           created: '2019-08-24T14:15:22Z'
           updated: '2019-08-24T14:15:22Z'
         - id: f61fbc1b-ba32-4476-aab5-5ac7c64c3f26
@@ -16392,11 +16310,6 @@ components:
               message: 'Request received, pending processing'
               created: '2019-08-24T14:15:22Z'
               updated: '2019-08-24T14:15:22Z'
-          deprecations:
-            - attribute: sshkeygroups
-              replacedBy: sshKeyGroups
-              takeActionBy: '2025-09-04T00:00:00Z'
-              notice: '''sshkeygroups'' is being deprecated in favor of ''sshKeyGroups''. Please take action prior to the specified date.'
           created: '2019-08-24T14:15:22Z'
           updated: '2019-08-24T14:15:22Z'
       properties:
@@ -16550,7 +16463,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Deprecation'
-          description: 'Deprecation notices for fields returned by this resource'
+          description: Deprecations active for this resource. Returned only if there are active deprecations.
         created:
           type: string
           description: 'Date/time when the Instance was created'
@@ -17523,7 +17436,7 @@ components:
           readOnly: true
         deprecations:
           type: array
-          description: List of deprecations for NVLinkInterface API object
+          description: Deprecations active for this resource. Returned only if there are active deprecations.
           items:
             $ref: '#/components/schemas/Deprecation'
     NVLinkInterfaceStatus:
@@ -19786,11 +19699,6 @@ components:
         - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
           machineId: fm100ht4v4mce2qstjnl8970nnj3ie6ecek4mtjn27pea4kre5gsa49jg0g
           instanceTypeId: 41e36058-8403-4086-a9b8-39cb5bc9cb98
-          deprecations:
-            - attribute: id
-              replacedBy: machineId
-              takeActionBy: '2026-07-09T00:00:00Z'
-              notice: '''id'' is being deprecated in favor of ''machineId''. Please take action prior to the specified date.'
           created: '2019-08-24T14:15:22Z'
           updated: '2019-08-24T14:15:22Z'
       properties:
@@ -19811,7 +19719,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Deprecation'
-          description: 'Deprecation notices for fields returned by this resource'
+          description: Deprecations active for this resource. Returned only if there are active deprecations.
         created:
           type: string
           description: 'Date and time the Machine Instance Type was created'
@@ -21842,7 +21750,7 @@ components:
             format: uuid
         deprecations:
           type: array
-          description: Deprecation notices for fields returned by this propagation detail
+          description: Deprecations active for this resource. Returned only if there are active deprecations.
           items:
             $ref: '#/components/schemas/Deprecation'
     NetworkSecurityGroupPropagationStatus:
@@ -22770,18 +22678,6 @@ components:
       title: Deprecation
       type: object
       description: Details of a particular deprecation in NVIDIA Infra Controller (NICo) API
-      examples:
-        - attribute: blockSize
-          replacedBy: prefixLength
-          takeActionBy: '2023-04-15T00:00:00Z'
-          notice: "'blockSize' has been deprecated in favor of 'prefixLength'. Please take action by specified date."
-        - queryParam: includeMachineAssociation
-          replacedBy: includeMachineAssignment
-          takeActionBy: '2023-07-26T00:00:00Z'
-          notice: "'includeMachineAssociation' has been deprecated in favor of 'includeMachineAssignment'. Please take action prior to the specified date"
-        - endpoint: POST /org/:orgName/nico/infrastructure-provider
-          takeActionBy: '2026-06-08T00:00:00Z'
-          notice: "'POST /org/:orgName/nico/infrastructure-provider' has been deprecated. Please take action prior to the specified date"
       properties:
         attribute:
           type:

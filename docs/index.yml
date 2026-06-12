@@ -269,6 +269,9 @@ navigation:
     - page: Getting Started
       path: ../rest-api/openapi/getting-started.md
       icon: circle-play
+    - page: Resource Overview
+      path: ../rest-api/openapi/resource-overview.md
+      icon: layer-group
     - page: Example REST API Workflows
       path: ../rest-api/openapi/example_workflows.md
       icon: gear
