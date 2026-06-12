@@ -26,6 +26,7 @@ mod is_bmc_in_managed_host;
 mod re_explore;
 mod refresh_endpoint;
 mod remediation;
+mod restart_ovs;
 
 #[cfg(test)]
 mod tests;
@@ -63,4 +64,6 @@ pub enum Cmd {
     IsBmcInManagedHost(is_bmc_in_managed_host::Args),
     HaveCredentials(have_credentials::Args),
     CopyBfbToDpuRshim(copy_bfb_to_dpu_rshim::Args),
+    #[clap(about = "Enable or disable OVS restart when admin network configuration changes")]
+    RestartOvsOnUseAdminNetworkChange(restart_ovs::Args),
 }

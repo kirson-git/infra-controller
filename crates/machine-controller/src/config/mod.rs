@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
+use std::sync::Arc;
+use std::sync::atomic::AtomicBool;
+
 use model::machine::HostHealthConfig;
 use serde::{Deserialize, Serialize};
 
@@ -44,6 +47,7 @@ pub struct MachineStateHandlerSiteConfig {
     pub spdm_enabled: bool,
 
     pub dpu_enable_secure_boot: bool,
+    pub restart_ovs_on_use_admin_network_change: Arc<AtomicBool>,
 }
 
 /// A UTC time window defined by a start and end timestamp.

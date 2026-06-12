@@ -154,6 +154,7 @@ pub struct ManagedHostNetworkConfig {
     /// merging in DPU-specific configs.
     pub use_admin_network: Option<bool>,
     pub quarantine_state: Option<ManagedHostQuarantineState>,
+    pub use_admin_network_changed: Option<bool>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -192,6 +193,7 @@ impl Default for ManagedHostNetworkConfig {
             secondary_overlay_vtep_ip: None,
             use_admin_network: Some(true),
             quarantine_state: None,
+            use_admin_network_changed: None,
         }
     }
 }
@@ -221,12 +223,14 @@ mod tests {
                         secondary_overlay_vtep_ip: Some(IpAddr::V4(Ipv4Addr::new(172, 16, 0, 5))),
                         use_admin_network: Some(true),
                         quarantine_state: None,
+                        use_admin_network_changed: None,
                     },
                     expect: Yields(ManagedHostNetworkConfig {
                         loopback_ip: Some(IpAddr::V4(Ipv4Addr::new(10, 0, 0, 1))),
                         secondary_overlay_vtep_ip: Some(IpAddr::V4(Ipv4Addr::new(172, 16, 0, 5))),
                         use_admin_network: Some(true),
                         quarantine_state: None,
+                        use_admin_network_changed: None,
                     }),
                 },
                 Case {
@@ -240,6 +244,7 @@ mod tests {
                         ))),
                         use_admin_network: Some(false),
                         quarantine_state: None,
+                        use_admin_network_changed: None,
                     },
                     expect: Yields(ManagedHostNetworkConfig {
                         loopback_ip: Some(IpAddr::V6(Ipv6Addr::new(
@@ -250,6 +255,7 @@ mod tests {
                         ))),
                         use_admin_network: Some(false),
                         quarantine_state: None,
+                        use_admin_network_changed: None,
                     }),
                 },
             ],
@@ -273,7 +279,8 @@ mod tests {
                         "loopback_ip": "10.0.0.1",
                         "secondary_overlay_vtep_ip": "172.16.0.5",
                         "use_admin_network": true,
-                        "quarantine_state": null
+                        "quarantine_state": null,
+			"use_admin_network_changed": null,
                     }"#,
                     expect: Yields((
                         Some(IpAddr::V4(Ipv4Addr::new(10, 0, 0, 1))),
@@ -286,7 +293,8 @@ mod tests {
                         "loopback_ip": "2001:db8::1",
                         "secondary_overlay_vtep_ip": null,
                         "use_admin_network": true,
-                        "quarantine_state": null
+                        "quarantine_state": null,
+			"use_admin_network_changed": null,
                     }"#,
                     expect: Yields((
                         Some(IpAddr::V6(Ipv6Addr::new(0x2001, 0xdb8, 0, 0, 0, 0, 0, 1))),
@@ -313,6 +321,7 @@ mod tests {
             secondary_overlay_vtep_ip: None,
             use_admin_network: Some(true),
             quarantine_state: None,
+            use_admin_network_changed: None,
         };
         let json = serde_json::to_string(&config).unwrap();
         // Ensure IpAddr serializes IPv4 same as Ipv4Addr.
@@ -328,6 +337,7 @@ mod tests {
         assert_eq!(config.secondary_overlay_vtep_ip, None);
         assert_eq!(config.use_admin_network, Some(true));
         assert_eq!(config.quarantine_state, None);
+        assert_eq!(config.use_admin_network_changed, None);
     }
 
     // Verify that IpAddr::to_string() produces the expected format for both
