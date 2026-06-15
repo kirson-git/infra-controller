@@ -918,10 +918,10 @@ impl TestEnv {
 
         (
             vpc.id,
-            vpc.status.as_ref().and_then(|s| s.vni),
+            vpc.status.vni,
             tenant_network_id,
             peer_vpc.id,
-            peer_vpc.status.as_ref().and_then(|s| s.vni),
+            peer_vpc.status.vni,
             peer_tenant_network_id,
         )
     }
