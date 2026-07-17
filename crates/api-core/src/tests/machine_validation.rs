@@ -163,7 +163,7 @@ async fn test_machine_validation_with_error(
         .into()
     );
 
-    let _ = on_demand_machine_validation(
+    let on_demand_response = on_demand_machine_validation(
         &env,
         machine.id.unwrap_or_default(),
         Vec::new(),
@@ -172,6 +172,7 @@ async fn test_machine_validation_with_error(
         Vec::new(),
     )
     .await;
+    let validation_id = on_demand_response.validation_id.unwrap();
     env.run_machine_state_controller_iteration_until_state_matches(
         &mh.host().id,
         3,
@@ -179,9 +180,9 @@ async fn test_machine_validation_with_error(
             validation_state: ValidationState::MachineValidation {
                 machine_validation: MachineValidatingState::MachineValidating {
                     context: "OnDemand".to_string(),
-                    id: MachineValidationId::new(),
-                    completed: 1,
-                    total: 1,
+                    id: validation_id,
+                    completed: 0,
+                    total: 0,
                     is_enabled: env.config.machine_validation_config.enabled,
                 },
             },

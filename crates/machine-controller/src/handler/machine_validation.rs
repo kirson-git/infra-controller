@@ -209,14 +209,25 @@ pub(crate) async fn handle_machine_validation_state(
                 db::machine_validation::find_by_id(&mut ctx.services.db_reader, validation_id)
                     .await
                     .map_err(|err| StateHandlerError::GenericError(err.into()))?;
+            let status = machine_validation.status.unwrap_or_default();
+            let completed = usize::try_from(status.completed).map_err(|_| {
+                StateHandlerError::GenericError(eyre::eyre!(
+                    "machine validation completed count cannot be negative"
+                ))
+            })?;
+            let total = usize::try_from(status.total).map_err(|_| {
+                StateHandlerError::GenericError(eyre::eyre!(
+                    "machine validation total count cannot be negative"
+                ))
+            })?;
 
             let next_state = ManagedHostState::Validation {
                 validation_state: ValidationState::MachineValidation {
                     machine_validation: MachineValidatingState::MachineValidating {
                         context: machine_validation.context.unwrap_or_default(),
                         id: *validation_id,
-                        completed: 1,
-                        total: 1,
+                        completed,
+                        total,
                         is_enabled: host_handler_params.machine_validation_config.enabled,
                     },
                 },
