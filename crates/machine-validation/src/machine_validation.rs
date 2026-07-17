@@ -19,7 +19,7 @@ use std::fs::File;
 use std::io::{BufReader, Write};
 use std::path::Path;
 
-use carbide_utils::cmd::TokioCmd;
+use carbide_utils::cmd::{CmdOutput, CmdResult, TokioCmd};
 use carbide_uuid::machine::MachineId;
 use carbide_uuid::machine_validation::MachineValidationId;
 use chrono::Utc;
@@ -43,6 +43,39 @@ pub const DEFAULT_TIMEOUT: u64 = 3600;
 // low stale_run_timeout config values cannot fail healthy runs between these heartbeat updates.
 const MACHINE_VALIDATION_HEARTBEAT_INTERVAL: std::time::Duration =
     std::time::Duration::from_secs(30);
+
+#[derive(Debug, PartialEq, Eq)]
+enum PreconditionOutcome {
+    Continue,
+    Stop,
+}
+
+fn apply_precondition_result(
+    result: CmdResult<CmdOutput>,
+    machine_validation_result: &mut rpc::forge::MachineValidationResult,
+) -> PreconditionOutcome {
+    match result {
+        Ok(result) if result.exit_code == 0 => PreconditionOutcome::Continue,
+        Ok(result) => {
+            machine_validation_result.start_time = Some(result.start_time.into());
+            machine_validation_result.end_time = Some(result.end_time.into());
+            machine_validation_result.std_err = result.stderr;
+            machine_validation_result.std_out = "Skipped: precondition not met".to_owned();
+            machine_validation_result.exit_code = 0;
+            PreconditionOutcome::Stop
+        }
+        Err(e) => {
+            let now = Utc::now();
+            machine_validation_result.start_time = Some(now.into());
+            machine_validation_result.end_time = Some(now.into());
+            machine_validation_result.std_err = e.to_string();
+            machine_validation_result.std_out =
+                "Failed: precondition could not be executed".to_owned();
+            machine_validation_result.exit_code = -1;
+            PreconditionOutcome::Stop
+        }
+    }
+}
 
 struct MachineValidationExecution {
     result: rpc::forge::MachineValidationResult,
@@ -453,36 +486,21 @@ impl MachineValidation {
 
         // Check pre_condition
         if test.pre_condition.is_some() {
-            match TokioCmd::new(test.pre_condition.clone().unwrap_or("/bin/true".to_owned()))
-                .timeout(DEFAULT_TIMEOUT)
-                .env("CONTEXT".to_owned(), in_context.clone())
-                .env(
-                    "MACHINE_VALIDATION_RUN_ID".to_owned(),
-                    validation_id.to_string(),
-                )
-                .env("MACHINE_ID".to_owned(), machine_id.to_string())
-                .output_with_timeout()
-                .await
+            let precondition_result =
+                TokioCmd::new(test.pre_condition.clone().unwrap_or("/bin/true".to_owned()))
+                    .timeout(DEFAULT_TIMEOUT)
+                    .env("CONTEXT".to_owned(), in_context.clone())
+                    .env(
+                        "MACHINE_VALIDATION_RUN_ID".to_owned(),
+                        validation_id.to_string(),
+                    )
+                    .env("MACHINE_ID".to_owned(), machine_id.to_string())
+                    .output_with_timeout()
+                    .await;
+            if apply_precondition_result(precondition_result, &mut mc_result)
+                == PreconditionOutcome::Stop
             {
-                Ok(result) => {
-                    let exit_code = result.exit_code;
-                    if exit_code != 0 {
-                        mc_result.start_time = Some(result.start_time.into());
-                        mc_result.end_time = Some(result.end_time.into());
-                        mc_result.std_err = result.stderr;
-                        mc_result.std_out = "Skipped : Pre condition failed".to_owned();
-                        mc_result.exit_code = 0;
-                        return MachineValidationExecution::with_heartbeat(mc_result, heartbeat);
-                    }
-                }
-                Err(e) => {
-                    mc_result.start_time = Some(Utc::now().into());
-                    mc_result.end_time = Some(Utc::now().into());
-                    mc_result.std_err = e.to_string();
-                    mc_result.std_out = "Skipped : Pre condition failed".to_owned();
-                    mc_result.exit_code = 0;
-                    return MachineValidationExecution::with_heartbeat(mc_result, heartbeat);
-                }
+                return MachineValidationExecution::with_heartbeat(mc_result, heartbeat);
             }
         }
         // Execute command
@@ -671,5 +689,87 @@ impl MachineValidation {
             info!("To be implemented");
         }
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use carbide_utils::cmd::CmdError;
+
+    use super::*;
+
+    #[test]
+    fn precondition_result_distinguishes_skip_from_execution_failure() {
+        struct Case {
+            name: &'static str,
+            command_result: CmdResult<CmdOutput>,
+            expected_outcome: PreconditionOutcome,
+            expected_exit_code: i32,
+            expected_stdout: &'static str,
+            expected_stderr: &'static str,
+            expected_timestamps: bool,
+        }
+
+        let now = Utc::now();
+        let cases = [
+            Case {
+                name: "satisfied precondition continues",
+                command_result: Ok(CmdOutput {
+                    stdout: String::new(),
+                    stderr: String::new(),
+                    exit_code: 0,
+                    start_time: now,
+                    end_time: now,
+                }),
+                expected_outcome: PreconditionOutcome::Continue,
+                expected_exit_code: 0,
+                expected_stdout: "",
+                expected_stderr: "",
+                expected_timestamps: false,
+            },
+            Case {
+                name: "unmet precondition skips test",
+                command_result: Ok(CmdOutput {
+                    stdout: String::new(),
+                    stderr: "unsupported platform".to_owned(),
+                    exit_code: 1,
+                    start_time: now,
+                    end_time: now,
+                }),
+                expected_outcome: PreconditionOutcome::Stop,
+                expected_exit_code: 0,
+                expected_stdout: "Skipped: precondition not met",
+                expected_stderr: "unsupported platform",
+                expected_timestamps: true,
+            },
+            Case {
+                name: "precondition execution error fails test",
+                command_result: Err(CmdError::RunError(
+                    "/missing/precondition".to_owned(),
+                    "No such file or directory".to_owned(),
+                )),
+                expected_outcome: PreconditionOutcome::Stop,
+                expected_exit_code: -1,
+                expected_stdout: "Failed: precondition could not be executed",
+                expected_stderr: "error running '/missing/precondition': No such file or directory",
+                expected_timestamps: true,
+            },
+        ];
+
+        for case in cases {
+            let mut result = rpc::forge::MachineValidationResult::default();
+            let outcome = apply_precondition_result(case.command_result, &mut result);
+
+            assert_eq!(outcome, case.expected_outcome, "{}", case.name);
+            assert_eq!(result.exit_code, case.expected_exit_code, "{}", case.name);
+            assert_eq!(result.std_out, case.expected_stdout, "{}", case.name);
+            assert_eq!(result.std_err, case.expected_stderr, "{}", case.name);
+            assert_eq!(
+                result.start_time.is_some() && result.end_time.is_some(),
+                case.expected_timestamps,
+                "{}",
+                case.name
+            );
+        }
     }
 }
